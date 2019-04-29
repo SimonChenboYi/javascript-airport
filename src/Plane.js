@@ -1,12 +1,16 @@
 'use strict';
 
-function Plane (){
+function Plane() {
 };
 
-Plane.prototype.land = function(){
+Plane.prototype.isLand = function () {
   this.inAprone = true;
 };
 
-Plane.prototype.isInAprone = function(){
+Plane.prototype.isTakeoff = function () {
+  this.inAprone = false;
+};
+
+Plane.prototype.isInAprone = function () {
   return this.inAprone;
 };
