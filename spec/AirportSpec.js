@@ -42,14 +42,15 @@ describe('Airport', function () {
 
   it("prevent a plane to takeoff when stormy", function(){
     spyOn(weather, 'forecast').and.returnValue("stormy")
-    airport.land(plane);
+    airport.apron.push(plane);
     expect(function(){
       airport.takeoff(0)
     }).toThrowError("Too stormy to take off")
-
   });
 
-
-
+  it("prevent plane landing when stormy ", function () {
+    spyOn(weather, 'forecast').and.returnValue("stormy")
+    expect(function(){airport.land(plane)}).toThrowError("Too stormy to land");
+  });
 
 });

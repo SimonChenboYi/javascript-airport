@@ -33,11 +33,15 @@ describe("Feature test:", function () {
 
   it("airport prevent plane taking off when stormy ", function () {
     spyOn(Math,"random").and.returnValue(0.1)
-    airport.land(plane);
+    airport.apron.push(plane);
     
     expect(function(){airport.takeoff(0)}).toThrowError("Too stormy to take off");
   });
 
+  it("airport prevent plane landing when stormy ", function () {
+    spyOn(Math,"random").and.returnValue(0.1)
+    expect(function(){airport.land(plane)}).toThrowError("Too stormy to land");
+  });
 
 
 });

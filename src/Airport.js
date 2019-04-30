@@ -6,6 +6,9 @@ function Airport(weather = new Weather()) {
 };
 
 Airport.prototype.land = function (plane) {
+  if(this.weather.forecast() == "stormy"){
+    throw new Error("Too stormy to land")
+  }
   plane.isLand();
   this.apron.push(plane);
 };
