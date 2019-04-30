@@ -1,21 +1,25 @@
 'use strict';
 
 describe("Feature test:", function () {
-  var plane, plane2, plane3, airport
+  var plane, plane2, plane3, airport,weather
   beforeEach(function () {
     plane = new Plane();
     plane2 = new Plane();
     plane3 = new Plane();
-    airport = new Airport();
+    weather = new Weather();
+    airport = new Airport(weather);
+    
   });
 
   it("airport instruct a plane to land", function () {
+    spyOn(Math,"random").and.returnValue(0.9)
     airport.land(plane)
     expect(airport.apron).toContain(plane)
     expect(plane.isInAprone()).toEqual(true);
   });
 
   it("airport instruct a plane to take off", function () {
+    spyOn(Math,"random").and.returnValue(0.9)
     airport.land(plane);
     airport.land(plane2);
     airport.land(plane3);
@@ -26,5 +30,14 @@ describe("Feature test:", function () {
     expect(airport.apron).not.toContain(plane2);
     expect(plane2.isInAprone()).toEqual(false);
   });
+
+  it("airport prevent plane taking off when stormy ", function () {
+    spyOn(Math,"random").and.returnValue(0.1)
+    airport.land(plane);
+    
+    expect(function(){airport.takeoff(0)}).toThrowError("Too stormy to take off");
+  });
+
+
 
 });
