@@ -43,5 +43,11 @@ describe("Feature test:", function () {
     expect(function(){airport.land(plane)}).toThrowError("Too stormy to land");
   });
 
-
+  it("airport not accept plane landing when full ", function () {
+    spyOn(Math,"random").and.returnValue(0.9)
+    for(var i = 0; i<airport.CAPACITY; i++){
+      airport.apron.push(new Plane());
+    }
+    expect(function(){airport.land(plane)}).toThrowError("Apron is full");
+  });
 });

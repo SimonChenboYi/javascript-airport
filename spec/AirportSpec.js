@@ -53,4 +53,12 @@ describe('Airport', function () {
     expect(function(){airport.land(plane)}).toThrowError("Too stormy to land");
   });
 
+  it("prevent plane landing when full ", function () {
+    spyOn(weather, 'forecast').and.returnValue("sunny")
+    for(var i = 0; i<airport.CAPACITY; i++){
+      airport.apron.push(new Plane());
+    }
+    expect(function(){airport.land(plane)}).toThrowError("Apron is full");
+  });
+
 });
